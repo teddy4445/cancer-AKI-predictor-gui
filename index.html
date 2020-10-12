@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Clinical Study - Teddy Lazebnik
+  </title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="A simple GUI for the clinical study developed by Teddy Lazebnik" name="description"/>
+  <meta content="Teddy Lazebnik" name="author"/>
+  <!-- css -->
+  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154895667-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-154895667-1');
+  </script>
+  <!-- Hotjar Tracking Code for http://teddylazebnik.info/ -->
+  <script>
+   (function(h,o,t,j,a,r){
+			h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+			h._hjSettings={hjid:1812929,hjsv:6};
+			a=o.getElementsByTagName('head')[0];
+			r=o.createElement('script');r.async=1;
+			r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+ </head>
+ <body>
+  <div id="progressBar">
+  </div>
+  <div id="ScrollPath">
+  </div>
+  <div class="row">
+   <div class="col-lg-12 col-md-12 col-sm-12 mobile-space">
+    <div class="body">
+     <div class="fluid-container">
+      <div class="row">
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+</script>
+<script crossorigin="anonymous" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+</script>
+<script crossorigin="anonymous" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js">
+</script>
+<script crossorigin="anonymous" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+</script>
+<script>
+ let name_aki = "AKI01";
+	let name_postComplication = "postComplication1Y2N";
+	let parms_aki = ["Size_cm", "renalScore4_12", "age", "BaseHb", "OT", "EBL", "weight", "height", "creatinine"];
+	let parms_postComplication = ["height", "collSysOpenY1N2", "Upper1Mid2Hillar3Lower4", "Central1Peripheral2", "renalScore4_12", "clinTNEW", "Ptnew", "pathologicN", "Pmnew", "worstGrade1_4", "creatinine"];
+	
+	generate_forms();
+	
+	function generate_forms()
+	{
+		generate_form(name_aki, "aki_form", parms_aki);
+		//generate_form(name_postComplication, "postComplication_form", parms_postComplication);
+	}
+	
+	function list_to_str(items)
+	{
+		answer = "[";
+		for (var i = 0; i < items.length; i++)
+		{
+			answer += "'" + items[i] + "',"
+		}
+		answer = answer.substring(0, answer.length - 1);
+		answer += "]"
+		return answer;
+	}
+	
+	function generate_form(name, form_id, coloums)
+	{
+		var panel = document.getElementById("panel");
+		panel.innerHTML += '<h3>' + name + ' prediction</h3><div class="card"><div class="card-body"><div id="' + form_id + '" class="row"></div></div></div><br><br>';
+		panel_form = document.getElementById(form_id);
+		var form_html = "";
+		for (var i = 0; i < coloums.length; i++)
+		{
+			form_html += '<div class="col-lg-4 col-md-4 col-sm-12"><div class="form-group">';
+			form_html += '<label id="label_' + name + '_' + coloums[i] + '" for="' + coloums[i] + '">' + coloums[i] + ' </label>';
+			form_html += '<input type="text" class="form-control" id="' + name + '_' + coloums[i] + '" aria-describedby="' + coloums[i] + '" placeholder="' + coloums[i] + '">';
+			form_html += '</div></div>';
+		}
+		form_html += '<br><div class="col-lg-2 col-md-2 col-sm-12"><button type="submit" style="margin: 10px 10px;" class="cool-btn cool-btn-gray" id="predict_btn_' + name + '" onclick="return run_prediction(\'' + name + '\', ' + list_to_str(coloums) + ', predict_' + name + ');"> Predict </button></div>';
+		form_html += '<br><br><div class="col-lg-10 col-md-10 col-sm-12"><p id="answer_' + name + '"> </p></div>';
+		panel_form.innerHTML += form_html;
+	}
+	
+	function run_prediction(name, parameters, sat)
+	{
+		var values = [];
+		var is_broken = false;
+		for (var i = 0; i < parameters.length; i++)
+		{
+			var new_val = document.getElementById(name + "_" + parameters[i]).value;
+			if (new_val == "")
+			{
+				document.getElementById("label_" + name + "_" + parameters[i]).style.color = "red";
+				if (!is_broken)
+				{
+					document.getElementById(name + "_" + parameters[i]).focus();
+				}
+				is_broken = true;
+			}
+			else
+			{
+				var float_new_val = parseFloat(new_val);
+				if (!isNaN(float_new_val))
+				{
+					values.push(float_new_val);
+					document.getElementById("label_" + name + "_" + parameters[i]).style.color = "black";
+				}
+				else
+				{
+					document.getElementById("label_" + name + "_" + parameters[i]).style.color = "red";
+					var input_place = document.getElementById(name + "_" + parameters[i]);
+					input_place.value = "";
+					input_place.focus();
+				}
+			}
+		}
+		if (!is_broken)
+		{
+			var predict_with_conf = sat(values);
+			document.getElementById("answer_" + name).innerHTML = "<h3>The prediction is: <b>" + predict_with_conf[0] + " with (" + predict_with_conf[1][0] + "% confidence)</b>.<br><br>Because: <br>" +  predict_with_conf[1][1].replaceAll("and", "and<br>") + "</h3>";
+		}
+		else
+		{
+			document.getElementById("answer_" + name).innerHTML = "";
+		}
+		// just to make sure the form won't break
+		return false;
+	}
+	
+
+/*
+function predict_postComplication1Y2N(values)
+{
+	path = []
+	if (values[8] <= 1.7200000286102295)
+	{
+		path.push('Pmnew <= 1.7200000286102295')
+		if (values[3] <= 16.25)
+		{
+			path.push('Central1Peripheral2 <= 16.25')
+			if (values[4] <= 147.0)
+			{
+				path.push('renalScore4_12 <= 147.0')
+				if (values[2] <= 61.5)
+				{
+					path.push('Upper1Mid2Hillar3Lower4 <= 61.5')
+					if (values[6] <= 101.0)
+					{
+						path.push('Ptnew <= 101.0')
+						return [0, check_path_postComplication1Y2N(path)];
+					}
+					else
+					{
+						path.push('Ptnew > 101.0')
+						return [1, check_path_postComplication1Y2N(path)];
+					}
+				}
+				else
+				{
+					path.push('Upper1Mid2Hillar3Lower4 > 61.5')
+					if (values[5] <= 550.0)
+					{
+						path.push('clinTNEW <= 550.0')
+						return [0, check_path_postComplication1Y2N(path)];
+					}
+					else
+					{
+						path.push('clinTNEW > 550.0')
+						return [1, check_path_postComplication1Y2N(path)];
+					}
+				}
+			}
+			else
+			{
+				path.push('renalScore4_12 > 147.0')
+				if (values[1] <= 6.5)
+				{
+					path.push('collSysOpenY1N2 <= 6.5')
+					if (values[3] <= 11.050000190734863)
+					{
+						path.push('Central1Peripheral2 <= 11.050000190734863')
+						return [1, check_path_postComplication1Y2N(path)];
+					}
+					else
+					{
+						path.push('Central1Peripheral2 > 11.050000190734863')
+						return [0, check_path_postComplication1Y2N(path)];
+					}
+				}
+				else
+				{
+					path.push('collSysOpenY1N2 > 6.5')
+					if (values[6] <= 94.5)
+					{
+						path.push('Ptnew <= 94.5')
+						return [1, check_path_postComplication1Y2N(path)];
+					}
+					else
+					{
+						path.push('Ptnew > 94.5')
+						return [1, check_path_postComplication1Y2N(path)];
+					}
+				}
+			}
+		}
+		else
+		{
+			path.push('Central1Peripheral2 > 16.25')
+			return [1, check_path_postComplication1Y2N(path)];
+		}
+	}
+	else
+	{
+		path.push('Pmnew > 1.7200000286102295')
+		return [1, check_path_postComplication1Y2N(path)];
+	}
+}
+*/
+	
+function predict_AKI01(values)
+{
+	path = []
+	if (values[8] <= 1.7100000381469727)
+	{
+		path.push('creatinine <= 1.7100000381469727')
+		if (values[3] <= 14.349999904632568)
+		{
+			path.push('BaseHb <= 14.349999904632568')
+			if (values[5] <= 62.5)
+			{
+				path.push('EBL <= 62.5')
+				if (values[4] <= 144.0)
+				{
+					path.push('OT <= 144.0')
+					if (values[1] <= 9.5)
+					{
+						path.push('renal <= 9.5')
+						if (values[3] <= 14.050000190734863)
+						{
+							path.push('BaseHb <= 14.050000190734863')
+							if (values[6] <= 100.5)
+							{
+								path.push('weight <= 100.5')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('weight > 100.5')
+								return [0, check_path_AKI01(path)];
+							}
+						}
+						else
+						{
+							path.push('BaseHb > 14.050000190734863')
+							return [0, check_path_AKI01(path)];
+						}
+					}
+					else
+					{
+						path.push('renal > 9.5')
+						if (values[2] <= 85.0)
+						{
+							path.push('age <= 85.0')
+							return [0, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('age > 85.0')
+							return [1, check_path_AKI01(path)];
+						}
+					}
+				}
+				else
+				{
+					path.push('OT > 144.0')
+					if (values[2] <= 58.5)
+					{
+						path.push('age <= 58.5')
+						if (values[2] <= 37.5)
+						{
+							path.push('age <= 37.5')
+							return [1, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('age > 37.5')
+							if (values[8] <= 1.4000000357627869)
+							{
+								path.push('creatinine <= 1.4000000357627869')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('creatinine > 1.4000000357627869')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+					else
+					{
+						path.push('age > 58.5')
+						if (values[4] <= 175.5)
+						{
+							path.push('OT <= 175.5')
+							return [1, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('OT > 175.5')
+							if (values[2] <= 68.5)
+							{
+								path.push('age <= 68.5')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('age > 68.5')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				path.push('EBL > 62.5')
+				if (values[5] <= 77.5)
+				{
+					path.push('EBL <= 77.5')
+					return [1, check_path_AKI01(path)];
+				}
+				else
+				{
+					path.push('EBL > 77.5')
+					if (values[6] <= 83.0)
+					{
+						path.push('weight <= 83.0')
+						if (values[0] <= 2.950000047683716)
+						{
+							path.push('Size <= 2.950000047683716')
+							return [0, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('Size > 2.950000047683716')
+							if (values[7] <= 152.5)
+							{
+								path.push('height <= 152.5')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('height > 152.5')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+					else
+					{
+						path.push('weight > 83.0')
+						if (values[2] <= 46.0)
+						{
+							path.push('age <= 46.0')
+							return [0, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('age > 46.0')
+							if (values[8] <= 0.8149999976158142)
+							{
+								path.push('creatinine <= 0.8149999976158142')
+								return [1, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('creatinine > 0.8149999976158142')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			path.push('BaseHb > 14.349999904632568')
+			if (values[6] <= 60.5)
+			{
+				path.push('weight <= 60.5')
+				if (values[8] <= 1.0450000166893005)
+				{
+					path.push('creatinine <= 1.0450000166893005')
+					if (values[8] <= 0.9900000095367432)
+					{
+						path.push('creatinine <= 0.9900000095367432')
+						if (values[4] <= 127.5)
+						{
+							path.push('OT <= 127.5')
+							if (values[1] <= 8.5)
+							{
+								path.push('renal <= 8.5')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('renal > 8.5')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+						else
+						{
+							path.push('OT > 127.5')
+							return [1, check_path_AKI01(path)];
+						}
+					}
+					else
+					{
+						path.push('creatinine > 0.9900000095367432')
+						return [0, check_path_AKI01(path)];
+					}
+				}
+				else
+				{
+					path.push('creatinine > 1.0450000166893005')
+					return [1, check_path_AKI01(path)];
+				}
+			}
+			else
+			{
+				path.push('weight > 60.5')
+				if (values[6] <= 90.5)
+				{
+					path.push('weight <= 90.5')
+					if (values[4] <= 89.0)
+					{
+						path.push('OT <= 89.0')
+						return [0, check_path_AKI01(path)];
+					}
+					else
+					{
+						path.push('OT > 89.0')
+						if (values[4] <= 100.5)
+						{
+							path.push('OT <= 100.5')
+							if (values[5] <= 85.0)
+							{
+								path.push('EBL <= 85.0')
+								return [1, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('EBL > 85.0')
+								return [0, check_path_AKI01(path)];
+							}
+						}
+						else
+						{
+							path.push('OT > 100.5')
+							if (values[1] <= 10.5)
+							{
+								path.push('renal <= 10.5')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('renal > 10.5')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+				}
+				else
+				{
+					path.push('weight > 90.5')
+					if (values[7] <= 169.0)
+					{
+						path.push('height <= 169.0')
+						if (values[5] <= 80.0)
+						{
+							path.push('EBL <= 80.0')
+							return [0, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('EBL > 80.0')
+							if (values[2] <= 59.5)
+							{
+								path.push('age <= 59.5')
+								return [1, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('age > 59.5')
+								return [0, check_path_AKI01(path)];
+							}
+						}
+					}
+					else
+					{
+						path.push('height > 169.0')
+						if (values[0] <= 7.049999952316284)
+						{
+							path.push('Size <= 7.049999952316284')
+							return [1, check_path_AKI01(path)];
+						}
+						else
+						{
+							path.push('Size > 7.049999952316284')
+							if (values[8] <= 1.0950000286102295)
+							{
+								path.push('creatinine <= 1.0950000286102295')
+								return [0, check_path_AKI01(path)];
+							}
+							else
+							{
+								path.push('creatinine > 1.0950000286102295')
+								return [1, check_path_AKI01(path)];
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		path.push('creatinine > 1.7100000381469727')
+		return [1, check_path_AKI01(path)];
+	}
+}
+
+function check_path_AKI01(path_conditions)
+{
+	var scores = {};
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb <= 14.050000190734863 and weight <= 100.5'] = 55.2;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb <= 14.050000190734863 and weight > 100.5'] = 41.97;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb > 14.050000190734863'] = 42.72;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT <= 144.0 and renal > 9.5 and age <= 85.0'] = 46.31;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age > 37.5 and creatinine <= 1.4000000357627869'] = 42.91;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT > 175.5 and age <= 68.5'] = 41.02;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size <= 2.950000047683716'] = 42.53;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size > 2.950000047683716 and height <= 152.5'] = 42.53;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age <= 46.0'] = 41.02;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight <= 60.5 and creatinine <= 1.0450000166893005 and creatinine <= 0.9900000095367432 and OT <= 127.5 and renal <= 8.5'] = 41.21;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight <= 60.5 and creatinine <= 1.0450000166893005 and creatinine > 0.9900000095367432'] = 41.21;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight <= 90.5 and OT <= 89.0'] = 41.59;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT <= 100.5 and EBL > 85.0'] = 40.83;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT > 100.5 and renal <= 10.5'] = 43.86;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL <= 80.0'] = 41.4;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL > 80.0 and age > 59.5'] = 41.02;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.049999952316284 and creatinine <= 1.0950000286102295'] = 41.21;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT <= 144.0 and renal > 9.5 and age > 85.0'] = 59.55;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age <= 37.5'] = 59.92;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age > 37.5 and creatinine > 1.4000000357627869'] = 59.55;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT <= 175.5'] = 60.49;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT > 175.5 and age > 68.5'] = 59.92;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL <= 77.5'] = 61.06;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size > 2.950000047683716 and height > 152.5'] = 60.11;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age > 46.0 and creatinine <= 0.8149999976158142'] = 59.55;
+	scores['creatinine <= 1.7100000381469727 and BaseHb <= 14.349999904632568 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age > 46.0 and creatinine > 0.8149999976158142'] = 61.06;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight <= 60.5 and creatinine <= 1.0450000166893005 and creatinine <= 0.9900000095367432 and OT <= 127.5 and renal > 8.5'] = 59.55;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight <= 60.5 and creatinine <= 1.0450000166893005 and creatinine <= 0.9900000095367432 and OT > 127.5'] = 59.92;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight <= 60.5 and creatinine > 1.0450000166893005'] = 61.44;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT <= 100.5 and EBL <= 85.0'] = 60.3;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT > 100.5 and renal > 10.5'] = 59.74;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL > 80.0 and age <= 59.5'] = 59.92;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size <= 7.049999952316284'] = 62.95;
+	scores['creatinine <= 1.7100000381469727 and BaseHb > 14.349999904632568 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.049999952316284 and creatinine > 1.0950000286102295'] = 59.55;
+	scores['creatinine > 1.7100000381469727'] = 62.76;
+	var path_str = '';
+	for (var i = 0; i < path_conditions.length; i++)
+	{
+		 path_str += path_conditions[i] + ' and ';
+	}
+	path_str = path_str.substring(0, path_str.length-5);
+	return [scores[path_str], path_str];
+}
+
+/*
+function check_path_postComplication1Y2N(path_conditions)
+{
+	var scores = {};
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 <= 61.5 and Ptnew <= 101.0'] = 34.43;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 > 61.5 and clinTNEW <= 550.0'] = 100.0;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 <= 6.5 and Central1Peripheral2 > 11.050000190734863'] = 100.0;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 <= 61.5 and Ptnew > 101.0'] = 96.24;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 > 61.5 and clinTNEW > 550.0'] = 96.24;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 <= 6.5 and Central1Peripheral2 <= 11.050000190734863'] = 96.24;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 > 6.5 and Ptnew <= 94.5'] = 96.24;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 > 6.5 and Ptnew > 94.5'] = 96.24;
+	scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 > 16.25'] = 96.24;
+	scores['Pmnew > 1.7200000286102295'] = 63.69;
+	var path_str = '';
+	for (var i = 0; i < path_conditions.length; i++)
+	{
+		 path_str += path_conditions[i] + ' and ';
+	}
+	path_str = path_str.substring(0, path_str.length-5);
+	return [scores[path_str], path_str];
+}
+*/
+
+</script>
