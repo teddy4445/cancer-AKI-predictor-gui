@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  
+  <title>
+   AKI Predictor 
+  </title>
+  <meta content="A simple GUI for the AKI predictor study developed by Teddy Lazebnik" name="description"/>
+  <meta content="Teddy Lazebnik" name="author"/>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154895667-1">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-154895667-1');
+  </script>
+  <!-- Hotjar Tracking Code for http://teddylazebnik.info/ -->
+  <script>
+   (function(h,o,t,j,a,r){
+			h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+			h._hjSettings={hjid:1812929,hjsv:6};
+			a=o.getElementsByTagName('head')[0];
+			r=o.createElement('script');r.async=1;
+			r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+ </head>
+ <body>
+ 
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="index.html">AKI predictor</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="predictor.html" class="get-started-btn">Predictor</a>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main" style="margin-top: 40px;">
+
+    <!-- ======= About Section ======= -->
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-12 pt-4 pt-lg-0 order-2 order-lg-1 content">
+			<div id="panel">
+			</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <p>
+				Upon entering the patient characteristics, the AKI predictor will provide an estimate of the patient’s risk of developing AKI, as defined by the KDIGO serum creatinine criteria. 
+				The percentage, given below, is the predicted confidance that a patient with these characteristics will or will not develop AKI after partial nephrectomy.
+				
+				Predicted risks are calculated based on data from approximately 700 patients and been externally validated by hospital personnel. 
+				<br><br>
+				<a href="paper.pdf" title="read the paper" class="btn btn-info">Read the Paper</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container d-md-flex py-4">
+
+      <div class="mr-md-auto text-center text-md-left">
+        <div class="copyright">
+          &copy; Copyright <strong><span>AKI predictor</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Design and development by <a href="https://bootstrapmade.com/">Teddy Lazebnik</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+  <div id="preloader"></div>
+ 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+	</script>
+	<script crossorigin="anonymous" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+	</script>
+	<script crossorigin="anonymous" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js">
+	</script>
+	<script crossorigin="anonymous" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+	</script>
+	<script>
+	 let name_aki = "AKI";
+		let name_postComplication = "postComplication1Y2N";
+		let parms_aki = ["Size_cm", "renalScore4_12", "age", "BaseHb", "OT", "EBL", "weight", "height", "creatinine"];
+		let parms_postComplication = ["height", "collSysOpenY1N2", "Upper1Mid2Hillar3Lower4", "Central1Peripheral2", "renalScore4_12", "clinTNEW", "Ptnew", "pathologicN", "Pmnew", "worstGrade1_4", "creatinine"];
+		
+		generate_forms();
+		
+		function generate_forms()
+		{
+			generate_form(name_aki, "aki_form", parms_aki);
+			//generate_form(name_postComplication, "postComplication_form", parms_postComplication);
+		}
+		
+		function list_to_str(items)
+		{
+			answer = "[";
+			for (var i = 0; i < items.length; i++)
+			{
+				answer += "'" + items[i] + "',"
+			}
+			answer = answer.substring(0, answer.length - 1);
+			answer += "]"
+			return answer;
+		}
+		
+		function generate_form(name, form_id, coloums)
+		{
+			var panel = document.getElementById("panel");
+			panel.innerHTML += '<h3>' + name + ' prediction</h3><div class="card"><div class="card-body"><div id="' + form_id + '" class="row"></div></div></div><br><br>';
+			panel_form = document.getElementById(form_id);
+			var form_html = "";
+			for (var i = 0; i < coloums.length; i++)
+			{
+				form_html += '<div class="col-lg-4 col-md-4 col-sm-12"><div class="form-group">';
+				form_html += '<label id="label_' + name + '_' + coloums[i] + '" for="' + coloums[i] + '">' + coloums[i] + ' </label>';
+				form_html += '<input type="text" class="form-control" id="' + name + '_' + coloums[i] + '" aria-describedby="' + coloums[i] + '" placeholder="' + coloums[i] + '">';
+				form_html += '</div></div>';
+			}
+			form_html += '<br><div class="col-lg-12 col-md-12 col-sm-12"><button type="submit" class="btn btn-success btn-block" id="predict_btn_' + name + '" onclick="return run_prediction(\'' + name + '\', ' + list_to_str(coloums) + ', predict_' + name + ');"> Predict </button></div>';
+			form_html += '<br><br><div class="col-lg-10 col-md-10 col-sm-12"><p id="answer_' + name + '"> </p></div>';
+			panel_form.innerHTML += form_html;
+		}
+		
+		function run_prediction(name, parameters, sat)
+		{
+			var values = [];
+			var is_broken = false;
+			for (var i = 0; i < parameters.length; i++)
+			{
+				var new_val = document.getElementById(name + "_" + parameters[i]).value;
+				if (new_val == "")
+				{
+					document.getElementById("label_" + name + "_" + parameters[i]).style.color = "red";
+					if (!is_broken)
+					{
+						document.getElementById(name + "_" + parameters[i]).focus();
+					}
+					is_broken = true;
+				}
+				else
+				{
+					var float_new_val = parseFloat(new_val);
+					if (!isNaN(float_new_val))
+					{
+						values.push(float_new_val);
+						document.getElementById("label_" + name + "_" + parameters[i]).style.color = "black";
+					}
+					else
+					{
+						document.getElementById("label_" + name + "_" + parameters[i]).style.color = "red";
+						var input_place = document.getElementById(name + "_" + parameters[i]);
+						input_place.value = "";
+						input_place.focus();
+					}
+				}
+			}
+			if (!is_broken)
+			{
+				var predict_with_conf = sat(values);
+				document.getElementById("answer_" + name).innerHTML = "<h3>The prediction is: <b>" + predict_with_conf[0] + " with (" + predict_with_conf[1][0] + "% confidence)</b>.<br><br>Because: <br>" +  predict_with_conf[1][1].replaceAll("and", "and<br>") + "</h3>";
+			}
+			else
+			{
+				document.getElementById("answer_" + name).innerHTML = "";
+			}
+			// just to make sure the form won't break
+			return false;
+		}
+		
+
+	/*
+	function predict_postComplication1Y2N(values)
+	{
+		path = []
+		if (values[8] <= 1.7200000286102295)
+		{
+			path.push('Pmnew <= 1.7200000286102295')
+			if (values[3] <= 16.25)
+			{
+				path.push('Central1Peripheral2 <= 16.25')
+				if (values[4] <= 147.0)
+				{
+					path.push('renalScore4_12 <= 147.0')
+					if (values[2] <= 61.5)
+					{
+						path.push('Upper1Mid2Hillar3Lower4 <= 61.5')
+						if (values[6] <= 101.0)
+						{
+							path.push('Ptnew <= 101.0')
+							return [0, check_path_postComplication1Y2N(path)];
+						}
+						else
+						{
+							path.push('Ptnew > 101.0')
+							return [1, check_path_postComplication1Y2N(path)];
+						}
+					}
+					else
+					{
+						path.push('Upper1Mid2Hillar3Lower4 > 61.5')
+						if (values[5] <= 550.0)
+						{
+							path.push('clinTNEW <= 550.0')
+							return [0, check_path_postComplication1Y2N(path)];
+						}
+						else
+						{
+							path.push('clinTNEW > 550.0')
+							return [1, check_path_postComplication1Y2N(path)];
+						}
+					}
+				}
+				else
+				{
+					path.push('renalScore4_12 > 147.0')
+					if (values[1] <= 6.5)
+					{
+						path.push('collSysOpenY1N2 <= 6.5')
+						if (values[3] <= 11.050000190734863)
+						{
+							path.push('Central1Peripheral2 <= 11.050000190734863')
+							return [1, check_path_postComplication1Y2N(path)];
+						}
+						else
+						{
+							path.push('Central1Peripheral2 > 11.050000190734863')
+							return [0, check_path_postComplication1Y2N(path)];
+						}
+					}
+					else
+					{
+						path.push('collSysOpenY1N2 > 6.5')
+						if (values[6] <= 94.5)
+						{
+							path.push('Ptnew <= 94.5')
+							return [1, check_path_postComplication1Y2N(path)];
+						}
+						else
+						{
+							path.push('Ptnew > 94.5')
+							return [1, check_path_postComplication1Y2N(path)];
+						}
+					}
+				}
+			}
+			else
+			{
+				path.push('Central1Peripheral2 > 16.25')
+				return [1, check_path_postComplication1Y2N(path)];
+			}
+		}
+		else
+		{
+			path.push('Pmnew > 1.7200000286102295')
+			return [1, check_path_postComplication1Y2N(path)];
+		}
+	}
+	*/
+		
+	function predict_AKI(values)
+	{
+		path = []
+		if (values[8] <= 1.7100000381469727)
+		{
+			path.push('creatinine <= 1.71')
+			if (values[3] <= 14.349999904632568)
+			{
+				path.push('BaseHb <= 14.35')
+				if (values[5] <= 62.5)
+				{
+					path.push('EBL <= 62.5')
+					if (values[4] <= 144.0)
+					{
+						path.push('OT <= 144.0')
+						if (values[1] <= 9.5)
+						{
+							path.push('renal <= 9.5')
+							if (values[3] <= 14.050000190734863)
+							{
+								path.push('BaseHb <= 14.05')
+								if (values[6] <= 100.5)
+								{
+									path.push('weight <= 100.5')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('weight > 100.5')
+									return [0, check_path_AKI(path)];
+								}
+							}
+							else
+							{
+								path.push('BaseHb > 14.05')
+								return [0, check_path_AKI(path)];
+							}
+						}
+						else
+						{
+							path.push('renal > 9.5')
+							if (values[2] <= 85.0)
+							{
+								path.push('age <= 85.0')
+								return [0, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('age > 85.0')
+								return [1, check_path_AKI(path)];
+							}
+						}
+					}
+					else
+					{
+						path.push('OT > 144.0')
+						if (values[2] <= 58.5)
+						{
+							path.push('age <= 58.5')
+							if (values[2] <= 37.5)
+							{
+								path.push('age <= 37.5')
+								return [1, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('age > 37.5')
+								if (values[8] <= 1.4000000357627869)
+								{
+									path.push('creatinine <= 1.4')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('creatinine > 1.4')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+						else
+						{
+							path.push('age > 58.5')
+							if (values[4] <= 175.5)
+							{
+								path.push('OT <= 175.5')
+								return [1, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('OT > 175.5')
+								if (values[2] <= 68.5)
+								{
+									path.push('age <= 68.5')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('age > 68.5')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					path.push('EBL > 62.5')
+					if (values[5] <= 77.5)
+					{
+						path.push('EBL <= 77.5')
+						return [1, check_path_AKI(path)];
+					}
+					else
+					{
+						path.push('EBL > 77.5')
+						if (values[6] <= 83.0)
+						{
+							path.push('weight <= 83.0')
+							if (values[0] <= 2.950000047683716)
+							{
+								path.push('Size <= 2.95')
+								return [0, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('Size > 2.95')
+								if (values[7] <= 152.5)
+								{
+									path.push('height <= 152.5')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('height > 152.5')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+						else
+						{
+							path.push('weight > 83.0')
+							if (values[2] <= 46.0)
+							{
+								path.push('age <= 46.0')
+								return [0, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('age > 46.0')
+								if (values[8] <= 0.8149999976158142)
+								{
+									path.push('creatinine <= 0.815')
+									return [1, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('creatinine > 0.815')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				path.push('BaseHb > 14.35')
+				if (values[6] <= 60.5)
+				{
+					path.push('weight <= 60.5')
+					if (values[8] <= 1.0450000166893005)
+					{
+						path.push('creatinine <= 1.045')
+						if (values[8] <= 0.9900000095367432)
+						{
+							path.push('creatinine <= 0.99')
+							if (values[4] <= 127.5)
+							{
+								path.push('OT <= 127.5')
+								if (values[1] <= 8.5)
+								{
+									path.push('renal <= 8.5')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('renal > 8.5')
+									return [1, check_path_AKI(path)];
+								}
+							}
+							else
+							{
+								path.push('OT > 127.5')
+								return [1, check_path_AKI(path)];
+							}
+						}
+						else
+						{
+							path.push('creatinine > 0.99')
+							return [0, check_path_AKI(path)];
+						}
+					}
+					else
+					{
+						path.push('creatinine > 1.045')
+						return [1, check_path_AKI(path)];
+					}
+				}
+				else
+				{
+					path.push('weight > 60.5')
+					if (values[6] <= 90.5)
+					{
+						path.push('weight <= 90.5')
+						if (values[4] <= 89.0)
+						{
+							path.push('OT <= 89.0')
+							return [0, check_path_AKI(path)];
+						}
+						else
+						{
+							path.push('OT > 89.0')
+							if (values[4] <= 100.5)
+							{
+								path.push('OT <= 100.5')
+								if (values[5] <= 85.0)
+								{
+									path.push('EBL <= 85.0')
+									return [1, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('EBL > 85.0')
+									return [0, check_path_AKI(path)];
+								}
+							}
+							else
+							{
+								path.push('OT > 100.5')
+								if (values[1] <= 10.5)
+								{
+									path.push('renal <= 10.5')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('renal > 10.5')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+					}
+					else
+					{
+						path.push('weight > 90.5')
+						if (values[7] <= 169.0)
+						{
+							path.push('height <= 169.0')
+							if (values[5] <= 80.0)
+							{
+								path.push('EBL <= 80.0')
+								return [0, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('EBL > 80.0')
+								if (values[2] <= 59.5)
+								{
+									path.push('age <= 59.5')
+									return [1, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('age > 59.5')
+									return [0, check_path_AKI(path)];
+								}
+							}
+						}
+						else
+						{
+							path.push('height > 169.0')
+							if (values[0] <= 7.049999952316284)
+							{
+								path.push('Size <= 7.05')
+								return [1, check_path_AKI(path)];
+							}
+							else
+							{
+								path.push('Size > 7.05')
+								if (values[8] <= 1.0950000286102295)
+								{
+									path.push('creatinine <= 1.095')
+									return [0, check_path_AKI(path)];
+								}
+								else
+								{
+									path.push('creatinine > 1.095')
+									return [1, check_path_AKI(path)];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			path.push('creatinine > 1.71')
+			return [1, check_path_AKI(path)];
+		}
+	}
+
+	function check_path_AKI(path_conditions)
+	{
+		var scores = {};
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight <= 100.5'] = 55.2;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight > 100.5'] = 41.97;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT <= 144.0 and renal <= 9.5 and BaseHb > 14.05'] = 42.72;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT <= 144.0 and renal > 9.5 and age <= 85.0'] = 46.31;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age > 37.5 and creatinine <= 1.4'] = 42.91;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT > 175.5 and age <= 68.5'] = 41.02;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size <= 2.95'] = 42.53;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size > 2.95 and height <= 152.5'] = 42.53;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age <= 46.0'] = 41.02;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT <= 127.5 and renal <= 8.5'] = 41.21;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine > 0.99'] = 41.21;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT <= 89.0'] = 41.59;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT <= 100.5 and EBL > 85.0'] = 40.83;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT > 100.5 and renal <= 10.5'] = 43.86;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL <= 80.0'] = 41.4;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL > 80.0 and age > 59.5'] = 41.02;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.05 and creatinine <= 1.095'] = 41.21;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT <= 144.0 and renal > 9.5 and age > 85.0'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age <= 37.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age <= 58.5 and age > 37.5 and creatinine > 1.4'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT <= 175.5'] = 60.49;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL <= 62.5 and OT > 144.0 and age > 58.5 and OT > 175.5 and age > 68.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL <= 77.5'] = 61.06;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight <= 83.0 and Size > 2.95 and height > 152.5'] = 60.11;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age > 46.0 and creatinine <= 0.815'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL > 62.5 and EBL > 77.5 and weight > 83.0 and age > 46.0 and creatinine > 0.815'] = 61.06;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT <= 127.5 and renal > 8.5'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT > 127.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine > 1.045'] = 61.44;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT <= 100.5 and EBL <= 85.0'] = 60.3;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT > 89.0 and OT > 100.5 and renal > 10.5'] = 59.74;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL > 80.0 and age <= 59.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size <= 7.05'] = 62.95;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.05 and creatinine > 1.095'] = 59.55;
+		scores['creatinine > 1.71'] = 62.76;
+		var path_str = '';
+		for (var i = 0; i < path_conditions.length; i++)
+		{
+			 path_str += path_conditions[i] + ' and ';
+		}
+		path_str = path_str.substring(0, path_str.length-5);
+		return [scores[path_str], path_str];
+	}
+
+	/*
+	function check_path_postComplication1Y2N(path_conditions)
+	{
+		var scores = {};
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 <= 61.5 and Ptnew <= 101.0'] = 34.43;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 > 61.5 and clinTNEW <= 550.0'] = 100.0;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 <= 6.5 and Central1Peripheral2 > 11.05'] = 100.0;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 <= 61.5 and Ptnew > 101.0'] = 96.24;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 <= 147.0 and Upper1Mid2Hillar3Lower4 > 61.5 and clinTNEW > 550.0'] = 96.24;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 <= 6.5 and Central1Peripheral2 <= 11.05'] = 96.24;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 > 6.5 and Ptnew <= 94.5'] = 96.24;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 <= 16.25 and renalScore4_12 > 147.0 and collSysOpenY1N2 > 6.5 and Ptnew > 94.5'] = 96.24;
+		scores['Pmnew <= 1.7200000286102295 and Central1Peripheral2 > 16.25'] = 96.24;
+		scores['Pmnew > 1.7200000286102295'] = 63.69;
+		var path_str = '';
+		for (var i = 0; i < path_conditions.length; i++)
+		{
+			 path_str += path_conditions[i] + ' and ';
+		}
+		path_str = path_str.substring(0, path_str.length-5);
+		return [scores[path_str], path_str];
+	}
+	*/
+
+	</script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+ </body>
+</html>
