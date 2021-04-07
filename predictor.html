@@ -136,7 +136,7 @@
 	<script>
 	 let name_aki = "AKI";
 		let name_postComplication = "postComplication1Y2N";
-		let parms_aki = ["Size_cm", "renalScore4_12", "age", "BaseHb", "OT*", "EBL*", "weight", "height", "creatinine"];
+		let parms_aki = ["Size_cm", "renalScore4_12", "age", "BaseHb", "WIT*", "EBL*", "weight", "height", "creatinine"];
 		let parms_postComplication = ["height", "collSysOpenY1N2", "Upper1Mid2Hillar3Lower4", "Central1Peripheral2", "renalScore4_12", "clinTNEW", "Ptnew", "pathologicN", "Pmnew", "worstGrade1_4", "creatinine"];
 		
 		generate_forms();
@@ -327,7 +327,7 @@
 					path.push('EBL* <= 62.5')
 					if (values[4] <= 144.0)
 					{
-						path.push('OT* <= 144.0')
+						path.push('WIT* <= 144.0')
 						if (values[1] <= 9.5)
 						{
 							path.push('renal <= 9.5')
@@ -368,7 +368,7 @@
 					}
 					else
 					{
-						path.push('OT* > 144.0')
+						path.push('WIT* > 144.0')
 						if (values[2] <= 58.5)
 						{
 							path.push('age <= 58.5')
@@ -397,12 +397,12 @@
 							path.push('age > 58.5')
 							if (values[4] <= 175.5)
 							{
-								path.push('OT <= 175.5')
+								path.push('WIT* <= 175.5')
 								return [1, check_path_AKI(path)];
 							}
 							else
 							{
-								path.push('OT > 175.5')
+								path.push('WIT* > 175.5')
 								if (values[2] <= 68.5)
 								{
 									path.push('age <= 68.5')
@@ -491,7 +491,7 @@
 							path.push('creatinine <= 0.99')
 							if (values[4] <= 127.5)
 							{
-								path.push('OT* <= 127.5')
+								path.push('WIT* <= 127.5')
 								if (values[1] <= 8.5)
 								{
 									path.push('renal <= 8.5')
@@ -505,7 +505,7 @@
 							}
 							else
 							{
-								path.push('OT* > 127.5')
+								path.push('WIT* > 127.5')
 								return [1, check_path_AKI(path)];
 							}
 						}
@@ -529,15 +529,15 @@
 						path.push('weight <= 90.5')
 						if (values[4] <= 89.0)
 						{
-							path.push('OT* <= 89.0')
+							path.push('WIT* <= 89.0')
 							return [0, check_path_AKI(path)];
 						}
 						else
 						{
-							path.push('OT* > 89.0')
+							path.push('WIT* > 89.0')
 							if (values[4] <= 100.5)
 							{
-								path.push('OT* <= 100.5')
+								path.push('WIT* <= 100.5')
 								if (values[5] <= 85.0)
 								{
 									path.push('EBL <= 85.0')
@@ -551,7 +551,7 @@
 							}
 							else
 							{
-								path.push('OT* > 100.5')
+								path.push('WIT* > 100.5')
 								if (values[1] <= 10.5)
 								{
 									path.push('renal <= 10.5')
@@ -628,37 +628,37 @@
 	function check_path_AKI(path_conditions)
 	{
 		var scores = {};
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight <= 100.5'] = 55.2;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight > 100.5'] = 41.97;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* <= 144.0 and renal <= 9.5 and BaseHb > 14.05'] = 42.72;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* <= 144.0 and renal > 9.5 and age <= 85.0'] = 46.31;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age <= 58.5 and age > 37.5 and creatinine <= 1.4'] = 42.91;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age > 58.5 and OT > 175.5 and age <= 68.5'] = 41.02;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight <= 100.5'] = 55.2;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* <= 144.0 and renal <= 9.5 and BaseHb <= 14.05 and weight > 100.5'] = 41.97;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* <= 144.0 and renal <= 9.5 and BaseHb > 14.05'] = 42.72;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* <= 144.0 and renal > 9.5 and age <= 85.0'] = 46.31;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age <= 58.5 and age > 37.5 and creatinine <= 1.4'] = 42.91;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age > 58.5 and WIT* > 175.5 and age <= 68.5'] = 41.02;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight <= 83.0 and Size <= 2.95'] = 42.53;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight <= 83.0 and Size > 2.95 and height <= 152.5'] = 42.53;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight > 83.0 and age <= 46.0'] = 41.02;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT* <= 127.5 and renal <= 8.5'] = 41.21;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and WIT* <= 127.5 and renal <= 8.5'] = 41.21;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine > 0.99'] = 41.21;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT* <= 89.0'] = 41.59;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT* > 89.0 and OT* <= 100.5 and EBL* > 85.0'] = 40.83;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT* > 89.0 and OT* > 100.5 and renal <= 10.5'] = 43.86;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and WIT* <= 89.0'] = 41.59;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and WIT* > 89.0 and WIT* <= 100.5 and EBL* > 85.0'] = 40.83;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and WIT* > 89.0 and WIT* > 100.5 and renal <= 10.5'] = 43.86;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL* <= 80.0'] = 41.4;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL* > 80.0 and age > 59.5'] = 41.02;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.05 and creatinine <= 1.095'] = 41.21;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* <= 144.0 and renal > 9.5 and age > 85.0'] = 59.55;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age <= 58.5 and age <= 37.5'] = 59.92;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age <= 58.5 and age > 37.5 and creatinine > 1.4'] = 59.55;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age > 58.5 and OT* <= 175.5'] = 60.49;
-		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and OT* > 144.0 and age > 58.5 and OT* > 175.5 and age > 68.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* <= 144.0 and renal > 9.5 and age > 85.0'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age <= 58.5 and age <= 37.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age <= 58.5 and age > 37.5 and creatinine > 1.4'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age > 58.5 and WIT* <= 175.5'] = 60.49;
+		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* <= 62.5 and WIT* > 144.0 and age > 58.5 and WIT* > 175.5 and age > 68.5'] = 59.92;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* <= 77.5'] = 61.06;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight <= 83.0 and Size > 2.95 and height > 152.5'] = 60.11;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight > 83.0 and age > 46.0 and creatinine <= 0.815'] = 59.55;
 		scores['creatinine <= 1.71 and BaseHb <= 14.35 and EBL* > 62.5 and EBL* > 77.5 and weight > 83.0 and age > 46.0 and creatinine > 0.815'] = 61.06;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT* <= 127.5 and renal > 8.5'] = 59.55;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and OT* > 127.5'] = 59.92;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and WIT* <= 127.5 and renal > 8.5'] = 59.55;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine <= 1.045 and creatinine <= 0.99 and WIT* > 127.5'] = 59.92;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight <= 60.5 and creatinine > 1.045'] = 61.44;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT* > 89.0 and OT* <= 100.5 and EBL <= 85.0'] = 60.3;
-		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and OT* > 89.0 and OT* > 100.5 and renal > 10.5'] = 59.74;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and WIT* > 89.0 and WIT* <= 100.5 and EBL <= 85.0'] = 60.3;
+		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight <= 90.5 and WIT* > 89.0 and WIT* > 100.5 and renal > 10.5'] = 59.74;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height <= 169.0 and EBL* > 80.0 and age <= 59.5'] = 59.92;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size <= 7.05'] = 62.95;
 		scores['creatinine <= 1.71 and BaseHb > 14.35 and weight > 60.5 and weight > 90.5 and height > 169.0 and Size > 7.05 and creatinine > 1.095'] = 59.55;
